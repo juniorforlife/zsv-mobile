@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Button, TextInput} from '../components';
+import {Button, TextInput} from '../_shared';
 
 export default function SignUpScreen() {
   const [username, setUsername] = useState(null);

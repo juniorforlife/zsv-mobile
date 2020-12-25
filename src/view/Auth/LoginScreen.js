@@ -2,26 +2,29 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 
-import {Button, TextInput, Text} from '../components';
+import {Button, TextInput, Text} from '../_shared';
 import {COLORS} from '../../constants';
 import {useForm} from '../../hooks';
-import authActions from '../../state/auth/authActions';
+import {authActions} from '../../state/';
 
 function LoginScreen(props) {
-  const {navigation, login} = props;
+  const {login} = props;
 
   const {formValues, onChangeInputValue} = useForm({
     email: null,
     password: null,
   });
   const [loginErr, setLoginErr] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
-      login(email, password);
+      const {email, password} = formValues;
+      setIsLoading(true);
+      await login(email, password);
     } catch (e) {
-      console.log(e);
       setLoginErr('Email or password is not correct');
+      setIsLoading(false);
     }
   };
 
@@ -30,11 +33,13 @@ function LoginScreen(props) {
   return (
     <View style={styles.container}>
       <TextInput
+        name={'email'}
         placeholder="Email"
         value={email}
         onChangeText={onChangeInputValue}
       />
       <TextInput
+        name={'password'}
         placeholder="Password"
         value={password}
         onChangeText={onChangeInputValue}
@@ -48,14 +53,14 @@ function LoginScreen(props) {
     </View>
   );
 }
+// const mapDispatch = (dispatch) => {
+//   return {
+//     login: (username, password) =>
+//       dispatch(authActions.login(username, password)),
+//   };
+// };
 
-function mapDispatchToProps() {
-  return {
-    login: authActions.login,
-  };
-}
-
-export default connect(null, mapDispatchToProps)(LoginScreen);
+export default connect(null, {login: authActions.login})(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {
