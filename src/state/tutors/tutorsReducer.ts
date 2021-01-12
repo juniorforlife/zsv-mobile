@@ -1,8 +1,8 @@
 const initState = {
   data: [],
 };
-export default (state = initState, action) => {
-  const {payload} = action;
+export default (state = initState, action: any) => {
+  const { payload } = action;
   switch (action.type) {
     case 'GET_TUTORS': {
       return {

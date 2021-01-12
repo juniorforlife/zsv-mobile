@@ -1,4 +1,4 @@
-const login = () => {
+const login = (email: string, password: string) => {
   return new Promise((resolve) =>
     resolve({
       data: {

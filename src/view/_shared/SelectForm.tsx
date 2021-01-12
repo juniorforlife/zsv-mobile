@@ -1,10 +1,19 @@
-import React, {useState, Fragment} from 'react';
-import {Keyboard} from 'react-native';
+import React, { useState, Fragment } from 'react';
+import { Keyboard } from 'react-native';
 
-import SelectModal from './SelectModal/SelectModal';
-import SelectInput from '../select-input/SelectInput';
+import SelectModal, { Option, SelectModalProps } from './SelectModal';
+import SelectInput, { SelectInputProps } from './SelectInput';
 
-const FormSelect = (props) => {
+interface SelectFormProps
+  extends Omit<SelectInputProps, 'onPress' | 'text'>,
+  Omit<SelectModalProps, 'isVisible' | 'onCancel' | 'onSelect' | 'title'> {
+  name: string;
+  value: string | number;
+  displayedText?: string;
+  onChange: (value: string | number, inputName: string) => void;
+}
+
+const SelectForm: React.FC<SelectFormProps> = (props) => {
   const {
     name,
     value,
@@ -27,7 +36,7 @@ const FormSelect = (props) => {
     setModalVisible(false);
   };
 
-  const handleSelect = (selectedOption) => {
+  const handleSelect = (selectedOption: Option) => {
     onChange(selectedOption.value, name);
     closeModal();
   };
@@ -40,7 +49,7 @@ const FormSelect = (props) => {
   if (displayedText) {
     text = displayedText;
   } else {
-    const selectedOption = options.find((item) => item.value === value);
+    const selectedOption = options.find((item: Option) => item.value === value);
     if (selectedOption) {
       text = selectedOption.label;
     }
@@ -62,8 +71,8 @@ const FormSelect = (props) => {
   );
 };
 
-FormSelect.defaultProps = {
+SelectForm.defaultProps = {
   options: [],
 };
 
-export default FormSelect;
+export default SelectForm;

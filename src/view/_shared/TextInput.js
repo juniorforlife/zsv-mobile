@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, TextInput as RNTextInput, StyleSheet, Text} from 'react-native';
+import { View, TextInput as RNTextInput, StyleSheet, Text } from 'react-native';
 
-import {COLORS} from '../../constants';
+import { COLORS } from '../../constants';
 
 const TextInput = (props) => {
   const {

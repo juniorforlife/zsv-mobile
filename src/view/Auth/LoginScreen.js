@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
-import {Button, TextInput, Text} from '../_shared';
-import {COLORS} from '../../constants';
-import {useForm} from '../../hooks';
-import {authActions} from '../../state/';
+import { Button, TextInput, Text } from '../_shared';
+import { COLORS } from '../../constants';
+import { useForm } from '../../hooks';
+import { authActions } from '../../state/';
 
 function LoginScreen(props) {
-  const {login} = props;
+  const { login } = props;
 
-  const {formValues, onChangeInputValue} = useForm({
+  const { formValues, onChangeInputValue } = useForm({
     email: null,
     password: null,
   });
@@ -19,7 +19,7 @@ function LoginScreen(props) {
 
   const handleLogin = async () => {
     try {
-      const {email, password} = formValues;
+      const { email, password } = formValues;
       setIsLoading(true);
       await login(email, password);
     } catch (e) {
@@ -28,7 +28,7 @@ function LoginScreen(props) {
     }
   };
 
-  const {email, password} = formValues;
+  const { email, password } = formValues;
 
   return (
     <View style={styles.container}>
@@ -60,7 +60,7 @@ function LoginScreen(props) {
 //   };
 // };
 
-export default connect(null, {login: authActions.login})(LoginScreen);
+export default connect(null, { login: authActions.login })(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {

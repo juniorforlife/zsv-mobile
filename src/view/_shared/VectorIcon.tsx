@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
+import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -15,9 +15,27 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-const VectorIcon = ({onPress, type, name, size, color, style}) => {
+export interface VectorIconProps {
+  type?: string;
+  name: string;
+  size?: number;
+  color?: string;
+}
+interface Props extends VectorIconProps {
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
+}
+
+const VectorIcon: React.FC<Props> = ({
+  onPress,
+  type,
+  name,
+  size,
+  color,
+  style,
+}) => {
   let icon = null;
-  const iconProps = {name, size, color};
+  const iconProps = { name, size, color };
   switch (type) {
     case 'AntDesign':
       icon = <AntDesign {...iconProps} />;
@@ -69,7 +87,7 @@ const VectorIcon = ({onPress, type, name, size, color, style}) => {
 VectorIcon.defaultProps = {
   size: 16,
   type: 'FontAwesome5',
-  color: '#fff',
+  color: 'grey',
 };
 
 export default VectorIcon;

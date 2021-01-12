@@ -1,17 +1,27 @@
-import React, {useState} from 'react';
-import {
-  View,
-  TouchableOpacity,
-  FlatList,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, FlatList, TextInput, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 
 import Text from './Text';
 import VectorIcon from './VectorIcon';
 
-const SelectModal = ({
+export interface Option {
+  value: string | number;
+  label: string;
+}
+
+export interface SelectModalProps {
+  isVisible: boolean;
+  options: Option[];
+  title: string;
+  onSelect: (option: Option) => void;
+  onCancel: () => void;
+  optionRenderer?: (option: Option) => React.ReactNode;
+  searchFunction?: (options: Option[]) => Option[];
+  searchPlaceholder?: string;
+}
+
+const SelectModal: React.FC<SelectModalProps> = ({
   isVisible,
   options,
   title,
@@ -21,19 +31,19 @@ const SelectModal = ({
   searchFunction,
   searchPlaceholder,
 }) => {
-  const [searchResult, setSearchResult] = useState(null);
+  const [searchResult, setSearchResult] = useState<Option[] | null>(null);
 
-  const handleSelect = (selectedOption) => {
+  const handleSelect = (selectedOption: Option) => {
     onSelect(selectedOption);
   };
 
-  const handleSearch = (text) => {
-    let result = [];
+  const handleSearch = (text: string) => {
+    let result: Option[] = [];
     if (text) {
       if (typeof searchFunction === 'function') {
         result = searchFunction(options);
       } else {
-        result = options.filter((item) => {
+        result = options.filter((item: Option) => {
           return item.label.toLowerCase().includes(text.toLowerCase());
         });
       }
@@ -48,8 +58,8 @@ const SelectModal = ({
     onCancel();
   };
 
-  const renderOption = ({item}) => {
-    let content = null;
+  const renderOption = ({ item }: { item: Option }) => {
+    let content: React.ReactNode = null;
     if (typeof optionRenderer === 'function') {
       content = optionRenderer(item);
     } else {
@@ -66,7 +76,7 @@ const SelectModal = ({
     );
   };
 
-  const keyExtractor = (item, index) =>
+  const keyExtractor = (item: Option, index: number) =>
     item.value ? item.value.toString() : index.toString();
 
   return (
@@ -103,8 +113,8 @@ const SelectModal = ({
             keyExtractor={keyExtractor}
           />
         ) : (
-          <Text style={styles.noData}>No data</Text>
-        )}
+            <Text style={styles.noData}>No data</Text>
+          )}
       </View>
     </Modal>
   );

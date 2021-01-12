@@ -1,12 +1,13 @@
-import {AUTHENTICATE, DID_CHECK_AUTH, LOGOUT} from '../actionTypes';
+import { AUTHENTICATE, DID_CHECK_AUTH, LOGOUT } from '../actionTypes';
 
 const initState = {
   userId: null,
   token: null,
   didCheckAuth: false,
 };
-export default (state = initState, action) => {
-  const {payload} = action;
+
+export default (state = initState, action: any) => {
+  const { payload } = action;
   switch (action.type) {
     case AUTHENTICATE: {
       return {
@@ -16,7 +17,7 @@ export default (state = initState, action) => {
       };
     }
     case DID_CHECK_AUTH: {
-      return {...state, didCheckAuth: true};
+      return { ...state, didCheckAuth: true };
     }
     case LOGOUT: {
       return {

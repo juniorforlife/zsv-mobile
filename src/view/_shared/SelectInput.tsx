@@ -1,10 +1,20 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
-import Text from './Text/Text';
-import VectorIcon from '../vector-icon';
+import Text from './Text';
+import VectorIcon, { VectorIconProps } from './VectorIcon';
 
-const SelectInput = ({
+export interface SelectInputProps {
+  onPress: () => void;
+  isDisabled?: boolean;
+  placeholder?: string;
+  label?: string;
+  text?: string;
+  iconProps?: VectorIconProps;
+  error?: string;
+}
+
+const SelectInput: React.FC<SelectInputProps> = ({
   onPress,
   isDisabled,
   placeholder,
