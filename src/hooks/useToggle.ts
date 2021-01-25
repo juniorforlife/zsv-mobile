@@ -6,7 +6,7 @@ import {useState} from 'react';
 export default (initState = false) => {
   const [state, setState] = useState(initState);
 
-  const toggle = (newState, callback) => {
+  const toggle = (newState: any, callback: Function) => {
     if (typeof callback === 'function') {
       callback();
     }

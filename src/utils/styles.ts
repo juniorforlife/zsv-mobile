@@ -10,21 +10,15 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidthPixel = PixelRatio.getPixelSizeForLayoutSize(windowWidth);
 const windowHeightPixel = PixelRatio.getPixelSizeForLayoutSize(windowHeight);
 
-function scaleWidth(number) {
-  if (typeof number === 'number') {
-    return (number / standardWidth) * windowWidth;
-  }
-  return 0;
+function scaleWidth(number: number) {
+  return (number / standardWidth) * windowWidth;
 }
 
-function scaleHeight(number) {
-  if (typeof number === 'number') {
-    return (number / standardHeight) * windowHeight;
-  }
-  return 0;
+function scaleHeight(number: number) {
+  return (number / standardHeight) * windowHeight;
 }
 
-function scaleWidthHeight(width, height, respsectRatio = false) {
+function scaleWidthHeight(width: number, height: number, respsectRatio: boolean = false) {
   const responsiveWidth = scaleWidth(width);
   if (height) {
     return {
@@ -38,15 +32,12 @@ function scaleWidthHeight(width, height, respsectRatio = false) {
   return {width: responsiveWidth, height: responsiveWidth};
 }
 
-function circle(number) {
-  if (typeof number === 'number') {
-    return {
-      width: number,
-      height: number,
-      borderRadius: number / 2,
-    };
-  }
-  return {};
+function circle(number: number) {
+  return {
+    width: number,
+    height: number,
+    borderRadius: number / 2,
+  };
 }
 
 const IS_IOS = Platform.OS === 'ios';
@@ -60,7 +51,7 @@ const IS_IPHONE_X =
     windowHeight === 896 ||
     windowWidth === 896);
 
-const boxShadow = (direction) => ({
+const boxShadow = (direction: 'top' | 'bottom') => ({
   shadowColor: 'rgba(0, 0, 0, .4)',
   shadowOffset:
     direction === 'top' ? {width: 0, height: -2} : {width: 0, height: 2},
